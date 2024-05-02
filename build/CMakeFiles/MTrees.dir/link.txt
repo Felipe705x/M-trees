@@ -1,0 +1,1 @@
+g++ -Wl,--verbose CMakeFiles/MTrees.dir/src/cluster_utils.cpp.o CMakeFiles/MTrees.dir/src/nearest_neighbour.cpp.o CMakeFiles/MTrees.dir/src/nearest_pair.cpp.o CMakeFiles/MTrees.dir/src/ss_method.cpp.o -o tmp/MTrees

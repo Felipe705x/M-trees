@@ -4,7 +4,7 @@
 # compile CXX with g++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/frgonzal/Test/M-trees/headers
+CXX_INCLUDES = @CMakeFiles/MTrees.dir/includes_CXX.rsp
 
 CXX_FLAGS = -std=gnu++17
 

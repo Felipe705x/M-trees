@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /usr/bin/cmake
+CMAKE_COMMAND = "C:/Program Files/CMake/bin/cmake.exe"
 
 # The command to remove a file.
-RM = /usr/bin/cmake -E rm -f
+RM = "C:/Program Files/CMake/bin/cmake.exe" -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/frgonzal/Test/M-trees
+CMAKE_SOURCE_DIR = C:/GH_Local/M-trees
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/frgonzal/Test/M-trees/build
+CMAKE_BINARY_DIR = C:/GH_Local/M-trees/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/frgonzal/Test/M-trees/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:/Program Files/CMake/bin/cmake-gui.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	"C:/Program Files/CMake/bin/cmake.exe" --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/frgonzal/Test/M-trees/build/CMakeFiles /home/frgonzal/Test/M-trees/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:/GH_Local/M-trees/build/CMakeFiles C:/GH_Local/M-trees/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/frgonzal/Test/M-trees/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:/GH_Local/M-trees/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -129,13 +129,13 @@ MTrees/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/build
 .PHONY : MTrees/fast
 
-src/cluster_utils.o: src/cluster_utils.cpp.o
-.PHONY : src/cluster_utils.o
+src/cluster_utils.obj: src/cluster_utils.cpp.obj
+.PHONY : src/cluster_utils.obj
 
 # target to build an object file
-src/cluster_utils.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/cluster_utils.cpp.o
-.PHONY : src/cluster_utils.cpp.o
+src/cluster_utils.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/cluster_utils.cpp.obj
+.PHONY : src/cluster_utils.cpp.obj
 
 src/cluster_utils.i: src/cluster_utils.cpp.i
 .PHONY : src/cluster_utils.i
@@ -153,13 +153,13 @@ src/cluster_utils.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/cluster_utils.cpp.s
 .PHONY : src/cluster_utils.cpp.s
 
-src/nearest_neighbour.o: src/nearest_neighbour.cpp.o
-.PHONY : src/nearest_neighbour.o
+src/nearest_neighbour.obj: src/nearest_neighbour.cpp.obj
+.PHONY : src/nearest_neighbour.obj
 
 # target to build an object file
-src/nearest_neighbour.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/nearest_neighbour.cpp.o
-.PHONY : src/nearest_neighbour.cpp.o
+src/nearest_neighbour.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/nearest_neighbour.cpp.obj
+.PHONY : src/nearest_neighbour.cpp.obj
 
 src/nearest_neighbour.i: src/nearest_neighbour.cpp.i
 .PHONY : src/nearest_neighbour.i
@@ -177,13 +177,13 @@ src/nearest_neighbour.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/nearest_neighbour.cpp.s
 .PHONY : src/nearest_neighbour.cpp.s
 
-src/nearest_pair.o: src/nearest_pair.cpp.o
-.PHONY : src/nearest_pair.o
+src/nearest_pair.obj: src/nearest_pair.cpp.obj
+.PHONY : src/nearest_pair.obj
 
 # target to build an object file
-src/nearest_pair.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/nearest_pair.cpp.o
-.PHONY : src/nearest_pair.cpp.o
+src/nearest_pair.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/nearest_pair.cpp.obj
+.PHONY : src/nearest_pair.cpp.obj
 
 src/nearest_pair.i: src/nearest_pair.cpp.i
 .PHONY : src/nearest_pair.i
@@ -201,13 +201,13 @@ src/nearest_pair.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/nearest_pair.cpp.s
 .PHONY : src/nearest_pair.cpp.s
 
-src/ss_method.o: src/ss_method.cpp.o
-.PHONY : src/ss_method.o
+src/ss_method.obj: src/ss_method.cpp.obj
+.PHONY : src/ss_method.obj
 
 # target to build an object file
-src/ss_method.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/ss_method.cpp.o
-.PHONY : src/ss_method.cpp.o
+src/ss_method.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/MTrees.dir/build.make CMakeFiles/MTrees.dir/src/ss_method.cpp.obj
+.PHONY : src/ss_method.cpp.obj
 
 src/ss_method.i: src/ss_method.cpp.i
 .PHONY : src/ss_method.i
@@ -234,16 +234,16 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... MTrees"
-	@echo "... src/cluster_utils.o"
+	@echo "... src/cluster_utils.obj"
 	@echo "... src/cluster_utils.i"
 	@echo "... src/cluster_utils.s"
-	@echo "... src/nearest_neighbour.o"
+	@echo "... src/nearest_neighbour.obj"
 	@echo "... src/nearest_neighbour.i"
 	@echo "... src/nearest_neighbour.s"
-	@echo "... src/nearest_pair.o"
+	@echo "... src/nearest_pair.obj"
 	@echo "... src/nearest_pair.i"
 	@echo "... src/nearest_pair.s"
-	@echo "... src/ss_method.o"
+	@echo "... src/ss_method.obj"
 	@echo "... src/ss_method.i"
 	@echo "... src/ss_method.s"
 .PHONY : help

@@ -1,6 +1,7 @@
 #include "../headers/nearest_neighbour.h"
 
 
+
 int nearestNeighbour(Cluster c1, vector<Cluster> clusters)  {
     int nearest;
     double minDistance = DBL_MAX;  // Initialize with the largest possible double value

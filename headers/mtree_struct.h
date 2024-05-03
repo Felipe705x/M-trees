@@ -12,18 +12,24 @@ struct Query {
 
 struct Entry {
     Point p;
-    double cr;
+    optional<double> cr;
     Node *a;
+    Entry(const Point& p, optional<double> cr, Node* a) : p(p), cr(cr), a(a) {}
 };
 
 const int B = 4096 / sizeof(Entry);
 const int b = B / 2;
 
 struct Node {
-    Entry L[B];
+    vector<Entry> Entries;
+
+    Node() : Entries() {
+        Entries.reserve(B);
+    }
 };
 
 
 struct MTree {
     Node root;
+    int height;
 };

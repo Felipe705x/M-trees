@@ -1,3 +1,0 @@
-C:/GH_Local/M-trees/build/CMakeFiles/MTrees.dir
-C:/GH_Local/M-trees/build/CMakeFiles/edit_cache.dir
-C:/GH_Local/M-trees/build/CMakeFiles/rebuild_cache.dir

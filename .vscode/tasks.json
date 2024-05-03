@@ -11,6 +11,7 @@
                 "${workspaceFolder}/src/nearest_neighbour.cpp",
                 "${workspaceFolder}/src/nearest_pair.cpp",
                 "${workspaceFolder}/src/minmax_split.cpp",
+                "${workspaceFolder}/src/mtree_struct.cpp",
                 "${workspaceFolder}/src/ss_method.cpp",
                 "-I${workspaceFolder}/headers",
                 "-o",

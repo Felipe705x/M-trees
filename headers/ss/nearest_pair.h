@@ -1,6 +1,6 @@
 #pragma once
 
-#include "cluster_utils.h"
+#include "../general/cluster_utils.h"
 
 
 pair <int,int> nearestPair(const vector<Cluster> &C);

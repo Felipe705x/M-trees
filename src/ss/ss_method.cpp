@@ -1,8 +1,8 @@
-#include "../headers/nearest_pair.h"
-#include "../headers/mtree_struct.h"
-#include "../headers/nearest_neighbour.h"
-#include "../headers/minmax_split.h"
-#include "../headers/mtree_funcs.h"
+#include "../../headers/ss/nearest_pair.h"
+#include "../../headers/general/mtree_struct.h"
+#include "../../headers/ss/nearest_neighbour.h"
+#include "../../headers/ss/minmax_split.h"
+#include "../../headers/general/mtree_funcs.h" 
 #include <ctime>
 
 
@@ -183,6 +183,6 @@ int main() {
     clock_t end = clock();
     double seconds = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     cout << endl;
-    cout << "Time taken: " << seconds << " seconds"  << endl;
+    cout << "Time taken papito: " << seconds << " seconds"  << endl;
     return 0;
 }

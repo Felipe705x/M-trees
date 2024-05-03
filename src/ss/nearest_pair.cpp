@@ -1,4 +1,4 @@
-#include "../headers/nearest_pair.h"
+#include "../../headers/ss/nearest_pair.h"
 
 
 pair<int,int> nearestPairBrute(const vector <Cluster> &C) {

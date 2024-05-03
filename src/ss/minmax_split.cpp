@@ -1,4 +1,4 @@
-#include "../headers/minmax_split.h"
+#include "../../headers/ss/minmax_split.h"
 
 double coveringRadius(const Cluster &cluster) {
     double maxRadius = 0.0;

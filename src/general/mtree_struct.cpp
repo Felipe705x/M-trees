@@ -1,5 +1,5 @@
-#include "../headers/mtree_struct.h"
-#include "../headers/mtree_funcs.h"
+#include "../../headers/general/mtree_struct.h"
+#include "../../headers/general/mtree_funcs.h"
 
 
 bool Entry::operator<(const Entry& other) const {

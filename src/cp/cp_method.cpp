@@ -46,6 +46,8 @@ int findClosestSample(const Point& point, const vector<Point>& samples, Cache& c
     return idx;
 }
 
+
+// Que carajos es esto rob....
 void subTrees(vector<MTree> &trees, vector<Point>& samples, int i) {
     for (const Entry& entry : trees[i].root->Entries) {
         MTree tree;
@@ -62,6 +64,7 @@ void subTrees(vector<MTree> &trees, vector<Point>& samples, int i) {
     }
 }
 
+// Que mierda? Porq
 vector<MTree> findHeight(Node& node, int height, int h) {
     vector<MTree> res;
 
@@ -98,7 +101,7 @@ void setCR(Node& node, Cache& cache) {
             entry.cr = maxDist;
         } 
         
-        else entry.cr = 0;
+        else entry.cr = 0; // nullopt
         
     }
 }

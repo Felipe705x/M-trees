@@ -23,7 +23,6 @@ const int b = B / 2;
 
 struct Node {
     vector<Entry> Entries;
-
     Node() : Entries() {
         Entries.reserve(B);
     }

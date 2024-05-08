@@ -269,7 +269,7 @@ Node *Algorithm_CP(vector<Point> &P) {
         Node *T = new Node;
         for (Point &p : P)
             T->Entries.emplace_back(p, nullopt, nullptr);
-        sort(T->Entries.begin(), T->Entries.end()); // Ordenamos las entradas. Esto permite facilidad de busqueda
+        std::sort(T->Entries.begin(), T->Entries.end()); // Ordenamos las entradas. Esto permite facilidad de busqueda
         return T;
     }
     
@@ -351,59 +351,42 @@ Node *Algorithm_CP(vector<Point> &P) {
     vector<int> heights = move(heights_and_min.first);
     int h = move(heights_and_min.second);
     vector<Node*> T_prime;
+    //Antes nuestro conjunto F era `samples`. Ahora sera la variable `F`. En esta se agregan los puntos de `samples` que son validos segun la etapa de balanceamiento.
+    // Esto permite hacer inserciones en O(1) a `F` en lugar de hacer borrados O(n) en `samples`
+    vector<Point> F; 
 
-    // En este for solo se mantendra que T_j, heights coinciden en indices
+    // samples coincide con T_j. F coincide con T_prime
     for(int i = 0; i < T_j.size(); i++) {
-        if (heights[i] == h)
+        if (heights[i] == h) {
             T_prime.push_back(move(T_j[i])); // Transferimos el puntero
+            F.push_back(samples[i]);        // El punto es valido, lo agregamos a F
+        }
         else {
-            // Creo que el problema esta cuando entramos aca
+            // El punto en T_j no es valido, no lo agregamos a F
             int depth = heights[i] - h;
-            vector<Node*> subtrees = getLevelChilds(T_j[i], depth); // de izq a derecha
-            int subtree_sizet = subtrees.size(); // Borrar
-            T_prime.reserve(T_prime.size() + subtrees.size());
-            T_prime.insert(T_prime.end(), subtrees.begin(), subtrees.end());
-            // Insertamos los puntos de la raiz en F (i.e. samples)
-            samples.reserve(samples.size() + T_j[i]->Entries.size());
-            int cnt = 0;
-            for (Entry &entry : T_j[i]->Entries) {
-                samples.push_back(entry.p);
-                cnt++;
-            }
-            assert(cnt == subtree_sizet && "ERROR GRAVE");
-            delete T_j[i]; // Liberamos memoria de la raiz, ya que ya extrajimos los puntos
+            vector<Node*> subtrees = getLevelChilds(T_j[i], depth-1); // de izq a derecha
+            for (Node* &st_root : subtrees) {
+                F.reserve(F.size() + st_root->Entries.size());
+                T_prime.reserve(T_prime.size() + st_root->Entries.size());
+                for (Entry &entry : st_root->Entries) {
+                    F.push_back(entry.p);
+                    T_prime.push_back(entry.a);
+                }
+            }            
+            //delete T_j[i]; // Liberamos memoria de la raiz, ya que ya extrajimos los puntos
         }
     }
 
-    std::sort(samples.begin(), samples.end());
-
-    // Remove consecutive duplicates
-    auto last = std::unique(samples.begin(), samples.end());
-    samples.erase(last, samples.end());
-    
-
-
-    
     vector<Node*>().swap(T_j); //liberamos el espacio de T_j   
-    Node *T_sup = Algorithm_CP(samples);
+    Node *T_sup = Algorithm_CP(F);
     pair<vector<Node*>, int> leaves_and_height = move(getLeaves(T_sup));
     vector<Node*> leaves = move(leaves_and_height.first);
     int leaves_height = move(leaves_and_height.second);
     
 
-    // a bit of testing
-    int abdi = 0;
-    for (Node* &H_j : leaves) {  // Por cada hoja
-        for (Entry &f_j : H_j->Entries)
-            abdi++;
-    }
-    cout << abdi << "vs." << T_prime.size() << endl;
-    assert(abdi == samples.size()&& "otro error");
-    assert(abdi == T_prime.size() && "XDDDDDDDDDD");  // ESTE ERROR QLO
-
     // Adjuntación de raices de T' a hojas de T_sup. Como las entradas estan ordenadas, podemos realizar esto eficientemente
 
-    sort(T_prime.begin(), T_prime.end(), compareNodes);  // O(|F|log|F|), ordenamos segun puntos de las primeras entradas
+    std::sort(T_prime.begin(), T_prime.end(), compareNodes);  // O(|F|log|F|), ordenamos segun puntos de las primeras entradas
     vector<bool> marked(T_prime.size(), false);
     for (Node* &H_j : leaves) {  // Por cada hoja
         for (Entry &f_j : H_j->Entries) { // Por cada entrada dentro de dicha hoja
@@ -449,14 +432,14 @@ Node *Algorithm_CP(vector<Point> &P) {
 
 int main() {
     clock_t start = clock();
-    int n = pow(2, 20);
+    int n = pow(2, 25);
     cout << "generating random points ..." << endl;
     vector<Point> points = randomPoints(n);
     cout << "cp" << endl;
     MTree mt;
     mt.construct(points, "CP");
     cout << endl;
-   // cout << mt << endl;
+    //cout << mt << endl;
     clock_t end = clock();
     double seconds = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     cout << endl;

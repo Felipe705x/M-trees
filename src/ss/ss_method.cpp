@@ -142,7 +142,7 @@ vector<Entry> intersectEntry(const Node &C, Cluster &c) {
             j++;
     }
     
-    s.shrink_to_fit(); // O(1)
+    s.shrink_to_fit();
     return s;  // Notar que s estará ordenado
 }
 
@@ -169,7 +169,7 @@ Node *Algorithm_SS(vector<Point> C_in) {
     }
     return OutputInternal(C.Entries).a;
 }
-
+/*
 int main() {
     clock_t start = clock();
     int n = B+1;
@@ -186,3 +186,4 @@ int main() {
     cout << "Time taken papito: " << seconds << " seconds"  << endl;
     return 0;
 }
+*/

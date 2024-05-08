@@ -1,0 +1,33 @@
+vector<Point> getOuterPoints(const Entry &entry, const Point &q, const double &r) {
+    if (entry.a == nullptr) {
+        if (dist(entry.p, q) > r * r)
+            return {{entry.p}};
+        else
+            return {};
+    }
+
+    if (sqrt(dist(entry.p, q)) > (entry.cr.value() + r)) {
+        int child_size = entry.a->Entries.size();
+        vector<vector<Point>> unjoined_points(child_size);
+        for (int i = 0; i < child_size; i++) {
+            unjoined_points[i] = getOuterPoints(entry.a->Entries[i], q, r);
+        }
+
+        // Calculate the total number of points to reserve space in ans
+        vector<Point> ans;
+        size_t total_size = 0;
+        for (const auto& child_points : unjoined_points) {
+            total_size += child_points.size();
+        }
+        ans.reserve(total_size);
+
+        // Insert all points into ans
+        for (const auto& child_points : unjoined_points) {
+            ans.insert(ans.end(), child_points.begin(), child_points.end());
+        }
+
+        return ans;
+    } else {
+        return {};
+    }
+}

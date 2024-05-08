@@ -6,9 +6,11 @@ bool Entry::operator<(const Entry& other) const {
     return p < other.p;
 }
 
-void MTree::construct(const vector <Point> &points, const string method) {
+void MTree::construct(vector <Point> &points, const string method) {
     if (method == "SS")
         root = Algorithm_SS(points);
+    else if (method == "CP")
+        root = Algorithm_CP(points);
 }
 
 ostream& operator<<(ostream& os, const MTree& mt) {
@@ -32,6 +34,7 @@ ostream& operator<<(ostream& os, const MTree& mt) {
             }
             os << "]";
         }
+        os << endl;
         os << endl;
     }
     return os;

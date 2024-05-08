@@ -36,7 +36,7 @@ struct MTree {
     int height;
     
     // Construye el arbol dado un vector de puntos (distintos) y un string del metodo de construcción("SS" o "CP")
-    void construct(const vector <Point> &points, const string method);
+    void construct(vector <Point> &points, const string method);
 
     friend ostream& operator<<(ostream& os, const MTree& mt);
 

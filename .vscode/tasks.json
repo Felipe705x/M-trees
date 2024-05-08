@@ -2,7 +2,7 @@
     "tasks": [
         {
             "type": "cppbuild",
-            "label": "Build entire project",
+            "label": "Build entire project (SS-main)",
             "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
             "args": [
                 "-fdiagnostics-color=always",
@@ -13,6 +13,7 @@
                 "${workspaceFolder}/src/ss/minmax_split.cpp",
                 "${workspaceFolder}/src/general/mtree_struct.cpp",
                 "${workspaceFolder}/src/ss/ss_method.cpp",
+                "${workspaceFolder}/src/cp/cp_method.cpp",
                 "-I${workspaceFolder}/headers",
                 "-o",
                 "${workspaceFolder}/build/ss_method.exe",
@@ -26,9 +27,40 @@
             ],
             "group": {
                 "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Compile all project files into a single executable for ss_method."
+        },
+        {
+            "type": "cppbuild",
+            "label": "Build entire project (CP-main)",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/src/general/cluster_utils.cpp",
+                "${workspaceFolder}/src/ss/nearest_neighbour.cpp",
+                "${workspaceFolder}/src/ss/nearest_pair.cpp",
+                "${workspaceFolder}/src/ss/minmax_split.cpp",
+                "${workspaceFolder}/src/general/mtree_struct.cpp",
+                "${workspaceFolder}/src/cp/cp_methodFA.cpp",
+                "${workspaceFolder}/src/ss/ss_method.cpp",
+                "-I${workspaceFolder}/headers",
+                "-o",
+                "${workspaceFolder}/build/cp_method.exe",
+                "-Wl,--stack,16777216" 
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
                 "isDefault": true
             },
-            "detail": "Compile all project files into a single executable."
+            "detail": "Compile all project files into a single executable for cp_method."
         }
     ],
     "version": "2.0.0"

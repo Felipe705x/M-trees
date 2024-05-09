@@ -44,4 +44,6 @@ struct MTree {
     
     // Inicializa el MTree como vacío
     MTree() : root(nullptr), size(0) {}
+
+    ~MTree();
 };

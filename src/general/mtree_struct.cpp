@@ -109,3 +109,23 @@ ostream& operator<<(ostream& os, const MTree& mt) {
     }
     return os;
 }
+
+// Destructor del Mtree, basado en la función `getLeaves`
+MTree::~MTree() {
+    queue<Node*> nodesQueue;
+    if (root == nullptr)
+        return;
+    nodesQueue.push(root);
+    while (!nodesQueue.empty()) {
+        int levelSize = nodesQueue.size(); // Cantidad de nodos en esta altura
+        for (int i = 0; i < levelSize; i++) {
+            Node* cnode = nodesQueue.front(); // current_node
+            nodesQueue.pop();
+            if (cnode->Entries[0].a != nullptr) { // Entonces no es una hoja
+                for (Entry &entry : cnode->Entries)
+                    nodesQueue.push(entry.a);
+            }
+            delete cnode;                
+        }
+    }
+}

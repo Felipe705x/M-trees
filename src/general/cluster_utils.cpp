@@ -104,7 +104,7 @@ Cluster clustUnion(const Cluster &c1, const Cluster &c2) {
  * RNG
  ***************************/
 
-vector<Point> randomPoints(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt) { 
+vector<Point> randomPoints(const ull n, pair<double, double> range, optional<int> seed) { 
     mt19937 gen;
     if (seed.has_value())
         gen.seed(seed.value());
@@ -120,7 +120,7 @@ vector<Point> randomPoints(const ull n, pair<double, double> range = make_pair(0
     return vector_point;
 }
 
-Point* randomPoints_static(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt) {
+Point* randomPoints_static(const ull n, pair<double, double> range, optional<int> seed) {
     mt19937 gen;
     if (seed.has_value())
         gen.seed(seed.value());
@@ -136,7 +136,7 @@ Point* randomPoints_static(const ull n, pair<double, double> range = make_pair(0
     return P;
 }
 
-vector<Cluster> randomSingletons(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt) {
+vector<Cluster> randomSingletons(const ull n, pair<double, double> range, optional<int> seed) {
     mt19937 gen;
     if (seed.has_value())
         gen.seed(seed.value());
@@ -147,7 +147,6 @@ vector<Cluster> randomSingletons(const ull n, pair<double, double> range = make_
 
     vector<Cluster> vector_singleton(n);
     random_device rd;
-    mt19937 gen(rd());
     uniform_real_distribution<> dis(range.first, range.second);
     for (ull i=0; i<n; i++)
         vector_singleton[i] = clusterize({dis(gen), dis(gen)});

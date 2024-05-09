@@ -257,5 +257,6 @@ int main() {
     double seconds = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     cout << endl;
     cout << "Time taken papito: " << seconds << " seconds"  << endl;
+    cout << sizeof(Entry);
     return 0;
 }

@@ -48,10 +48,10 @@ Cluster clusterize(const Point &point);
 Cluster clustUnion(const Cluster &c1, const Cluster &c2);
 
 // Genera un vector de n puntos aleatorios (x e y uniformemente distribuidos en [0,1])
-vector<Point> randomPoints(const ull n);
+vector<Point> randomPoints(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt);
 
 // Genera un arreglo de n puntos aleatorios (x e y uniformemente distribuidos en [0,1])
-Point* randomPoints_static(const ull n) ;
+Point* randomPoints_static(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt);
 
 // Genera un vector de n clusters singletons {p} (donde p.x e p.y uniformemente distribuidos en [0,1])
-vector<Cluster> randomSingletons(const ull n);
+vector<Cluster> randomSingletons(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt);

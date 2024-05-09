@@ -259,6 +259,3 @@ int main() {
     cout << "Time taken papito: " << seconds << " seconds"  << endl;
     return 0;
 }
-
-
-// Sospecho error en paso 7 o 9

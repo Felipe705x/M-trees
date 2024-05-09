@@ -1,4 +1,4 @@
-#include "M-tree.h"
+#include "../../headers/general/mtree_struct.h"
 
 // Función recursiva de búsqueda en M-Tree
 void MSearch(Node node, Query query, vector<Point>& result) {

@@ -31,15 +31,17 @@ struct Node {
 
 struct MTree {
     Node* root;
-
-    // Valor: -2 si no se ha calculado la altura, -1 si el arbol esta vacío
-    int height;
-    
+    int size; 
     // Construye el arbol dado un vector de puntos (distintos) y un string del metodo de construcción("SS" o "CP")
     void construct(vector <Point> &points, const string method);
 
-    friend ostream& operator<<(ostream& os, const MTree& mt);
+    // Genera un archivo con los nodos por nivel
+    void printf_mtree(string method);
 
+    
+    // Metodo para imprimir el arbol en la terminal. No es util para arboles grandes, dada las limitaciones del tamaño de la terminal
+    friend ostream& operator<<(ostream& os, const MTree& mt);
+    
     // Inicializa el MTree como vacío
-    MTree() : root(nullptr), height(-2) {}
+    MTree() : root(nullptr), size(0) {}
 };

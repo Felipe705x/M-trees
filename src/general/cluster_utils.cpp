@@ -20,9 +20,11 @@ ostream& operator<<(ostream& os, const Point& p) {
     return os;
 }
 
-
+// La distancia es eucleidiana, elevada al cuadrado.
+// Esto ahorra computar la raiz cada vez. Solo computaremos esta cuando necesitemos el valor de la distancia.
+// Sin la raiz, esta distancia sigue permitiendo establecer comparaciones ( dist(p,q) < dist(x,y) <=> dist^2(p,q) < dist^2(x,y) )
 double dist(Point p, Point q) {
-    double dist = pow((p.x-q.x),2) + pow((p.y-q.y),2);
+    double dist = (p.x-q.x)*(p.x-q.x) + (p.y-q.y)*(p.y-q.y);
     return dist;
 }
 
@@ -97,31 +99,56 @@ Cluster clustUnion(const Cluster &c1, const Cluster &c2) {
     return clusterize(points1);
 }
 
-vector<Point> randomPoints(const ull n) {
+
+/***************************
+ * RNG
+ ***************************/
+
+vector<Point> randomPoints(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt) { 
+    mt19937 gen;
+    if (seed.has_value())
+        gen.seed(seed.value());
+    else {
+        random_device rd;
+        gen.seed(rd());
+    }
+
     vector<Point> vector_point(n);
-    random_device rd;
-    mt19937 gen(rd());  // Para testear, podria usarse una semilla dada
-    uniform_real_distribution<> dis(0.0, 100); // Range [0, 1]
+    uniform_real_distribution<> dis(range.first, range.second);
     for (ull i=0; i<n; i++)
         vector_point[i] = {dis(gen), dis(gen)};
     return vector_point;
 }
 
-Point* randomPoints_static(const ull n) {
+Point* randomPoints_static(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt) {
+    mt19937 gen;
+    if (seed.has_value())
+        gen.seed(seed.value());
+    else {
+        random_device rd;
+        gen.seed(rd());
+    }
+
     Point* P = new Point[n];
-    random_device rd;
-    mt19937 gen(rd());  // Para testear, podria usarse una semilla dada
-    uniform_real_distribution<> dis(0.0, 100); // Range [0, 1]
+    uniform_real_distribution<> dis(range.first, range.second);
     for (ull i=0; i<n; i++)
         P[i] = {dis(gen), dis(gen)};
     return P;
 }
 
-vector<Cluster> randomSingletons(const ull n) {
+vector<Cluster> randomSingletons(const ull n, pair<double, double> range = make_pair(0.0, 1.0), optional<int> seed = nullopt) {
+    mt19937 gen;
+    if (seed.has_value())
+        gen.seed(seed.value());
+    else {
+        random_device rd;
+        gen.seed(rd());
+    }
+
     vector<Cluster> vector_singleton(n);
     random_device rd;
-    mt19937 gen(rd());  // Para testear, podria usarse una semilla dada
-    uniform_real_distribution<> dis(0.0, 100); // Range [0, 1]
+    mt19937 gen(rd());
+    uniform_real_distribution<> dis(range.first, range.second);
     for (ull i=0; i<n; i++)
         vector_singleton[i] = clusterize({dis(gen), dis(gen)});
     return vector_singleton;

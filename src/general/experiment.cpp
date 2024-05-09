@@ -7,34 +7,33 @@
 
 int seed = 42;
 
-vector<Point> rPoints(const ull n) {
-    vector<Point> vector_point(n);
-    mt19937 gen(seed);
-    uniform_real_distribution<> dis(0.0, 1);
-    for (ull i=0; i<n; i++)
-        vector_point[i] = {dis(gen), dis(gen)};
-    return vector_point;
-}
 
-vector<Query> rQueries() {
-    double r = 0.02;
+
+vector<Query> randomQueries(pair<double, double> range = make_pair((0.0), (1.0)), std::optional<int> seed = nullopt, double r = 0.02) {
+    mt19937 gen;
+    if (seed.has_value())
+        gen.seed(seed.value());
+    else {
+        random_device rd;
+        gen.seed(rd());
+    }
     vector<Query> vector_query(100);
-    mt19937 gen(seed);
-    uniform_real_distribution<> dis(0.0, 1);
+    uniform_real_distribution<> dis(range.first, range.second);
     for (int i=0; i<100; i++)
         vector_query[i] = {{dis(gen), dis(gen)}, r};
     return vector_query;
 }
 
+
 int main() {
     ofstream file("results.csv");
     file << "Method;Query;n;Disk Accesses;Query Time;Construction Time\n";
 
-    vector<Query> queries = rQueries();
-
+    vector<Query> queries = randomQueries({0.0, 1.0}, seed);
+    
     for (int i = 10; i < 26; i++) {
         unsigned long long n = (1ULL << i);
-        vector<Point> points = rPoints(n);
+        vector<Point> points = randomPoints(n, {0.0, 1.0}, seed);
 
         MTree tree_CP;
         MTree tree_SS;

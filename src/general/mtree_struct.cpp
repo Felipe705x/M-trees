@@ -49,8 +49,6 @@ void MTree::printf_mtree(string method) {
         for (int i = 0; i < levelSize; i++) {
             Node* cnode = nodesQueue.front(); // current_node
             nodesQueue.pop();
-            
-            
             if (cnode->Entries[0].a != nullptr) { // Entonces no es una hoja
                 for (Entry &entry : cnode->Entries) {
                     nodesQueue.push(entry.a);
@@ -111,7 +109,7 @@ ostream& operator<<(ostream& os, const MTree& mt) {
 }
 
 // Destructor del Mtree, basado en la función `getLeaves`
-MTree::~MTree() {
+void MTree::destroy() {
     queue<Node*> nodesQueue;
     if (root == nullptr)
         return;

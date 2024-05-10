@@ -44,43 +44,61 @@ double dist(Cluster c1, Cluster c2)  {
     return dist(c1.medoid, c2.medoid);
 }
 
+// C no vacio
 void setMedoid(Cluster &c) {
     vector<Point> points = c.points;
-    vector<Point> medoids;   // Borrar para producto final o bien refactorizar codigo
-    Point bestMedoid;        // Trackea el candidato a medoide
-    double minDistanceSum = DBL_MAX;
-    for (const Point &p : points)  {
-        double distance_sum = 0;
-        for (const Point &q: points)
-            distance_sum+=dist(p,q);
-        if (distance_sum < minDistanceSum) {
-            minDistanceSum = distance_sum;
-            bestMedoid = p;
+    if (c.points.size() <= 1) {
+        c.medoid = points[0];
+        return;
+    }
+    Point medoid;        // Trackea el candidato a medoide
+    double minRadius = DBL_MAX;
+    for (const Point &c_medoid : points) {   // Para cada punto elegido como posible medoide
+        double c_radius = 0.0;                  // Radio cobertor actual dado c_medoid como denominado medoide
+        for (const Point &point : points) {     // Calculamos su maximo radio (i.e. el radio cobertor)
+            if (point == c_medoid)
+                continue;
+            double distance = dist(c_medoid, point);
+            if (distance > c_radius)
+                c_radius = distance;
+        }
+        if (c_radius < minRadius) {
+            minRadius = c_radius;
+            medoid = c_medoid;
         }
     }
-    c.medoid = bestMedoid;
+    c.medoid = medoid;
 }
 
+// Vector no vacio
 Point calculateMedoid(const vector <Point> &points) {
-    vector<Point> medoids;   // Borrar para producto final o bien refactorizar codigo
-    Point bestMedoid;
-    double minDistanceSum = DBL_MAX;
-    for (const Point &p : points)  {
-        double distance_sum = 0;
-        for (const Point &q: points)
-            distance_sum+=dist(p,q);
-        if (distance_sum < minDistanceSum) {
-            minDistanceSum = distance_sum;
-            bestMedoid = p;
+    Point medoid;
+    if (points.size() <= 1) {
+        medoid = points[0];
+        return medoid;
+    }
+    double minRadius = DBL_MAX;
+    for (const Point &c_medoid : points) {   // Para cada punto elegido como posible medoide
+        double c_radius = 0.0;                  // Radio cobertor actual dado c_medoid como denominado medoide
+        for (const Point &point : points) {     // Calculamos su maximo radio (i.e. el radio cobertor)
+            if (point == c_medoid)
+                continue;
+            double distance = dist(c_medoid, point);
+            if (distance > c_radius)
+                c_radius = distance;
+        }
+        if (c_radius < minRadius) {
+            minRadius = c_radius;
+            medoid = c_medoid;
         }
     }
-    return bestMedoid;
+    return medoid;
 }
 
 Cluster clusterize(const vector<Point> &points) {
     Cluster c;
     c.points = points;
-    setMedoid(c);
+    c.medoid =  calculateMedoid(points);
     return c;
 }
 

@@ -245,18 +245,18 @@ Node *Algorithm_CP(vector<Point> &P) {
 
 int main() {
     clock_t start = clock();
-    int n = pow(2, 12);
+    int n = pow(2, 11);
     cout << "generating random points ..." << endl;
     vector<Point> points = randomPoints(n);
     cout << "cp" << endl;
     MTree mt;
-    mt.construct(points, "CP");
-    cout << endl;
-    mt.printf_mtree("CP");
+    mt.construct(points, "SS");
     clock_t end = clock();
     double seconds = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     cout << endl;
     cout << "Time taken papito: " << seconds << " seconds"  << endl;
+    mt.printf_mtree("SS");
+    
     cout << sizeof(Entry);
     return 0;
 }

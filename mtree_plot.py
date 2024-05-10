@@ -58,4 +58,6 @@ def graph_mtree(name_file, size, max_size):
     plt.grid(True)
     plt.show()
 
-graph_mtree("build/results/mtree/CP/S_12.csv", 12, 17) 
+
+
+graph_mtree("build/results/mtree/SS/S_11.csv", 11, 17)

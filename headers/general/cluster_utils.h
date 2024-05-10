@@ -32,10 +32,8 @@ double dist(Point p, Point q);
 // Distancia Eucleidiana (cuadrada) entre dos clusters, según distancia entre medioides
 double dist(Cluster c1, Cluster c2);
 
-// Calcula y asigna el primer medioide encontrado en el cluster
 void setMedoid(Cluster &c);
 
-// Calcula y retorna el primer medioide encontrado en un conjunto de puntos
 Point calculateMedoid(const vector <Point> &points);
 
 // Crea un cluster con el conjunto de puntos especificados y se asigna el medioide

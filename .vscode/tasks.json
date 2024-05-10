@@ -35,7 +35,35 @@
                 "isDefault": false
             },
             "detail": "Compile all project files into a single executable for ss_method."
-        }
+        },
+        {
+            "type": "cppbuild",
+            "label": "abdi",
+            "command": "C:\\msys64\\ucrt64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "-Og",
+                "${workspaceFolder}/src/general/cluster_utils.cpp",
+                "${workspaceFolder}/src/ss/nearest_neighbour.cpp",
+                "${workspaceFolder}/src/ss/nearest_pair.cpp",
+                "-I${workspaceFolder}/headers",
+                "-o",
+                "${workspaceFolder}/build/experimental.exe",
+                "-Wl,--stack,16777216" 
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "Compile all project files into a single executable for ss_method."
+        },
     ],
     "version": "2.0.0"
 }

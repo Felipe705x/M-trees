@@ -4,7 +4,7 @@
 
 namespace fs = filesystem;
 
-string project_root = "C:/GH_Local/DCCY2S1/M-trees";
+string project_root = "C:/GH_Local/M-trees";
 
 bool Entry::operator<(const Entry& other) const {
     return p < other.p;

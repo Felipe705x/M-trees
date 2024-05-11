@@ -26,10 +26,10 @@ struct Cluster {
     friend ostream& operator<<(ostream& os, const Cluster &c);
 };
 
-// Distancia Eucleidiana (cuadrada) entre dos puntos
+// Distancia Eucleidiana entre dos puntos
 double dist(Point p, Point q);
 
-// Distancia Eucleidiana (cuadrada) entre dos clusters, según distancia entre medioides
+// Distancia Eucleidiana entre dos clusters, según distancia entre medioides
 double dist(Cluster c1, Cluster c2);
 
 void setMedoid(Cluster &c);

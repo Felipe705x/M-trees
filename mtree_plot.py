@@ -60,4 +60,4 @@ def graph_mtree(name_file, size, max_size):
 
 
 
-graph_mtree("build/results/mtree/SS/S_11.csv", 11, 17)
+graph_mtree("build/results/mtree/CP/S_15.csv",15, 17)

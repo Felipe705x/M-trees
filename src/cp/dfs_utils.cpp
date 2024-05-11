@@ -2,13 +2,13 @@
 
 vector<Point> getOuterPoints_recursive(const Entry &entry, const Point &q, const double &r) {
     if (entry.a == nullptr) {
-        if (dist(entry.p, q) > r * r)
+        if (dist(entry.p, q) > r)
             return {{entry.p}};
         else
             return {};
     }
 
-    if (sqrt(dist(entry.p, q)) > (entry.cr.value() + r)) {
+    if (dist(entry.p, q) > (entry.cr.value() + r)) {
         int child_size = entry.a->Entries.size();
         vector<vector<Point>> unjoined_points(child_size);
         for (int i = 0; i < child_size; i++) {
@@ -51,11 +51,11 @@ vector<Point> getOuterPoints(Entry &root_entry, Point &q, double &r) {
         Entry* entry = top.entry;
 
         if (entry->a == nullptr) {
-            if (dist(entry->p, q) > r * r) {
+            if (dist(entry->p, q) > r) {
                 result.push_back(entry->p);
             }
             stack.pop();
-        } else if (sqrt(dist(entry->p, q)) > (entry->cr.value() + r)) {
+        } else if (dist(entry->p, q) > (entry->cr.value() + r)) {
             if (top.child_index < entry->a->Entries.size()) {
                 stack.push({&(entry->a->Entries[top.child_index]), {}, 0});
                 top.child_index++;

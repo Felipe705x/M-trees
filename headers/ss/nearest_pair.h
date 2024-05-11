@@ -22,6 +22,3 @@ pair <int,int> nearestPair(const vector<Cluster> &C);
  * @return par de indices correspondientes al par mas cercano encontrado en el conjunto
  */
 pair <int,int> nearestPairBrute(const vector<Cluster> &C);
-
-
-pair<int, int> nearestPair_sorted(const vector<Cluster> &C_sorted);

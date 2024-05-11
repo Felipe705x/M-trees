@@ -7,7 +7,7 @@
  * 
  * @param cluster cluster al cual se le calcula el radio cobertor
  * 
- * @return radio cobertor como una distancia eucleidiana, elevada al cuadrado
+ * @return radio cobertor como una distancia eucleidiana
 */
 double coveringRadius(const Cluster &cluster);
 

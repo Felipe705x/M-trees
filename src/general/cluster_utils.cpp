@@ -20,11 +20,9 @@ ostream& operator<<(ostream& os, const Point& p) {
     return os;
 }
 
-// La distancia es eucleidiana, elevada al cuadrado.
-// Esto ahorra computar la raiz cada vez. Solo computaremos esta cuando necesitemos el valor de la distancia.
-// Sin la raiz, esta distancia sigue permitiendo establecer comparaciones ( dist(p,q) < dist(x,y) <=> dist^2(p,q) < dist^2(x,y) )
+// La distancia es eucleidiana
 double dist(Point p, Point q) {
-    double dist = (p.x-q.x)*(p.x-q.x) + (p.y-q.y)*(p.y-q.y);
+    double dist = sqrt((p.x-q.x)*(p.x-q.x) + (p.y-q.y)*(p.y-q.y));
     return dist;
 }
 
@@ -112,6 +110,7 @@ Cluster clusterize(const Point &point) {
 Cluster clustUnion(const Cluster &c1, const Cluster &c2) {
     vector<Point> points1 = c1.points;
     vector<Point> points2 = c2.points;
+    points1.reserve(points1.size() + points2.size());
     for (int i = 0; i < points2.size(); i++)
         points1.push_back(points2[i]);
     return clusterize(points1);

@@ -188,38 +188,3 @@ pair<int, int> nearestPair(const vector<Cluster> &C) {
     
 	return ans.first;
 }
-
-
-// Lo mismo que nearestPair, pero asume que C viene ordenado segun su medoide.
-// Esto ahorra el ordenamiento en x
-pair<int, int> nearestPair_sorted(const vector<Cluster> &C_sorted) {
-    int n = C_sorted.size();
-	IndexedPoint* Px = new IndexedPoint[n];
-    IndexedPoint* Py = new IndexedPoint[n];
-
-	for (int i = 0; i < n; i++) {
-		Px[i] = {C_sorted[i].medoid.x, C_sorted[i].medoid.y, i};
-		Py[i] = {C_sorted[i].medoid.x, C_sorted[i].medoid.y, i};
-	}
-
-	qsort(Py, n, sizeof(IndexedPoint), compareY);
-
-	// Use recursive function nearestUtil() to find the smallest distance
-    pair<pair<int, int>, double> ans = nearestUtil(Px, Py, n);
-
-    delete[] Py;
-    
-	return ans.first;
-}
-
-int main() {
-	int n = pow(2,5);
-	for (int i = 0; i < 100 ; i++) {
-		vector<Cluster> c = randomSingletons(n);
-		auto pair1 = nearestPair(c);
-		auto pair2 = nearestPairBrute(c);
-		cout << pair1.first << " " << pair1.second << endl;
-		cout << pair2.first << " " << pair2.second << endl;
-		assert(dist(c[pair1.first], c[pair1.second]) == dist(c[pair2.first], c[pair2.second]));
-	}
-}

@@ -230,7 +230,7 @@ Node *Algorithm_CP(vector<Point> &P) {
         for (Node* &N_j : clevel) { // Por cada nodo en este nivel
             for (Entry &entry : N_j->Entries) {
                 vector<Point> outer_points = move(getOuterPoints(entry, entry.p, entry.cr.value()));
-                entry.cr = calculateCR(outer_points, entry.p, entry.cr.value()*entry.cr.value());
+                entry.cr = calculateCR(outer_points, entry.p, entry.cr.value());
             }
         }
     }
@@ -245,18 +245,16 @@ Node *Algorithm_CP(vector<Point> &P) {
 
 int main() {
     clock_t start = clock();
-    int n = pow(2, 11);
+    int n = pow(2, 15);
     cout << "generating random points ..." << endl;
     vector<Point> points = randomPoints(n);
-    cout << "cp" << endl;
     MTree mt;
-    mt.construct(points, "SS");
+    mt.construct(points, "CP");
     clock_t end = clock();
     double seconds = static_cast<double>(end - start) / CLOCKS_PER_SEC;
     cout << endl;
     cout << "Time taken papito: " << seconds << " seconds"  << endl;
-    mt.printf_mtree("SS");
+    mt.printf_mtree("CP");
     
-    cout << sizeof(Entry);
     return 0;
 }

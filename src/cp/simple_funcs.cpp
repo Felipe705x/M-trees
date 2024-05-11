@@ -54,10 +54,10 @@ int Node_binarySearch(Entry &f_j, vector<Node*> &T_prime, vector<bool> &marked) 
     return -1; // No se encontro el punto. Esto no deberia pasar, es un error.
 }
 
-double calculateCR(vector<Point> points, Point center, optional<double> oldCR_squared) {
+double calculateCR(vector<Point> points, Point center, optional<double> oldCR) {
     double maxRadius;
-    if (oldCR_squared.has_value())
-        maxRadius = oldCR_squared.value();
+    if (oldCR.has_value())
+        maxRadius = oldCR.value();
     else
         maxRadius = 0.0;
     for (Point &p : points) {
@@ -65,5 +65,5 @@ double calculateCR(vector<Point> points, Point center, optional<double> oldCR_sq
         if (distance > maxRadius)
             maxRadius = distance;
     }
-    return sqrt(maxRadius); // Recordar que nuestras distancias son cuadradas (para ahorrar recursos)
+    return maxRadius;
 }

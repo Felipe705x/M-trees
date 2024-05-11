@@ -9,7 +9,7 @@ double coveringRadius(const Cluster &cluster) {
         if (distance > maxRadius)
             maxRadius = distance;
     }
-    return maxRadius; // Al cuadrado, por que solo usaremos la funcion para efectos de comparacion
+    return maxRadius;
 }
 
 pair<Cluster, Cluster> minMaxSplit(const Cluster &c) {

@@ -26,7 +26,7 @@ static vector<Cluster> Cluster_SS(const vector<Point> &C_in) {
     while (C.size() > 1) {
         pair<int, int> closest_index;
         // Primary bottleneck: Implemented as O(n^2), a O(nlogn) algorithm is known but has memory issues on this machine.
-        closest_index = nearestPairBrute(C);
+        closest_index = nearestPair(C);
         Cluster c1, c2;
         int i1, i2;
 
@@ -82,7 +82,7 @@ static Entry OutputLeaf(const Cluster &C_in) {
     double r = 0.0;
     for (const Point p : C_in.points) {
         a->Entries.emplace_back(p, nullopt, nullptr);
-        r = max(r, sqrt(dist(C_in.medoid, p)));
+        r = max(r, dist(C_in.medoid, p));
     }
     if (a->Entries.size() < B)
         vector<Entry>(a->Entries.begin(), a->Entries.end()).swap(a->Entries); // Libera espacio no utilizado
@@ -96,7 +96,7 @@ static Entry OutputLeaf(const vector<Point> &C_in) {
     double r = 0.0;
     for (const Point p : C_in) {
         a->Entries.emplace_back(p, nullopt, nullptr);
-        r = max(r, sqrt(dist(g, p)));
+        r = max(r, dist(g, p));
     }
     if (a->Entries.size() < B)
         vector<Entry>(a->Entries.begin(), a->Entries.end()).swap(a->Entries); // Libera espacio no utilizado
@@ -115,7 +115,7 @@ static Entry OutputInternal(const vector<Entry> &C_mra) {
     Point G = calculateMedoid(C_in);
     for (const Entry entry : C_mra) {
         A->Entries.push_back(entry);
-        R = max(R, sqrt(dist(G, entry.p)) + entry.cr.value());
+        R = max(R, dist(G, entry.p) + entry.cr.value());
     }
     if (A->Entries.size() < B)
         vector<Entry>(A->Entries.begin(), A->Entries.end()).swap(A->Entries); // Libera espacio no utilizado
@@ -144,23 +144,11 @@ static vector<Entry> intersectEntry(const Node &C, Cluster &c) {
         else
             j++;
     }
-    
     s.shrink_to_fit();
-    cout << "begin" << endl;
-    for (const Entry &entry : s)
-        cout << entry.p;
-    cout << endl;
-    for (const Entry &entry: C.Entries)
-        cout << entry.p;
-    cout << endl;
-    for (const Point &p : c.points)
-        cout << p;
-    cout << "end" << endl;
     return s;  // Notar que s estará ordenado
 }
 
 Node *Algorithm_SS(vector<Point> C_in) {
-    cout << C_in.size();
     if (C_in.size() <= B)
         return OutputLeaf(C_in).a;
     vector<Cluster> C_out = move(Cluster_SS(C_in));
@@ -168,13 +156,13 @@ Node *Algorithm_SS(vector<Point> C_in) {
     for (const Cluster &c : C_out)
         C.Entries.emplace_back(OutputLeaf(c));
     C_in.clear();   // C_in = {}
-    cout << C.Entries.size() << endl;
     while (C.Entries.size() > B) {
         for (const Entry &entry : C.Entries)
             C_in.push_back(entry.p);
         C_out = move(Cluster_SS(C_in));
         vector<vector<Entry>> C_mra;
         C_mra.reserve(C_out.size());
+        sort(C.Entries.begin(), C.Entries.end());  // Ordenamos entradas
         for (Cluster &c : C_out)
             C_mra.emplace_back(intersectEntry(C, c));
         C.Entries.clear();

@@ -1,69 +1,85 @@
 #include "../../headers/general/cluster_utils.h"
 #include "../../headers/general/mtree_struct.h"
-#include "MSearch.cpp"
-#include <iostream>
-#include <cstdio>
+#include "../../headers/general/MSearch.h"
 #include <fstream>
+#include <chrono>
+
+using std::ofstream;
+using std::chrono::duration_cast;
+using std::chrono::nanoseconds;
+typedef std::chrono::high_resolution_clock Clock;
 
 int seed = 42;
 
+vector<Point> rPoints(const unsigned long long n) {
+    vector<Point> vector_point(n);
+    mt19937 gen(seed);
+    uniform_real_distribution<> dis(0.0, 1.0);
+    for (unsigned long long i = 0; i < n; i++)
+        vector_point[i] = {dis(gen), dis(gen)};
+    return vector_point;
+}
 
-
-vector<Query> randomQueries(pair<double, double> range = make_pair((0.0), (1.0)), std::optional<int> seed = nullopt, double r = 0.02) {
-    mt19937 gen;
-    if (seed.has_value())
-        gen.seed(seed.value());
-    else {
-        random_device rd;
-        gen.seed(rd());
-    }
+vector<Query> rQueries() {
+    double r = 0.02;
     vector<Query> vector_query(100);
-    uniform_real_distribution<> dis(range.first, range.second);
-    for (int i=0; i<100; i++)
+    mt19937 gen(seed);
+    uniform_real_distribution<> dis(0.0, 1.0);
+    for (int i = 0; i < 100; i++)
         vector_query[i] = {{dis(gen), dis(gen)}, r};
     return vector_query;
 }
 
-
 int main() {
-    ofstream file("results.csv");
+    ofstream file("results2.csv");
     file << "Method;Query;n;Disk Accesses;Query Time;Construction Time\n";
 
-    vector<Query> queries = randomQueries({0.0, 1.0}, seed);
-    
-    for (int i = 10; i < 26; i++) {
+    vector<Query> queries = rQueries();
+
+    for (int i = 15; i < 21; i++) {
         unsigned long long n = (1ULL << i);
-        vector<Point> points = randomPoints(n, {0.0, 1.0}, seed);
+        vector<Point> points = rPoints(n);
 
         MTree tree_CP;
-        MTree tree_SS;
+        //MTree tree_SS;
 
-        clock_t start_CP = clock();
+        auto start_CP = Clock::now();
         tree_CP.construct(points, "CP");
-        clock_t end_CP = clock();
-        double constructTime_CP = static_cast<double>(end_CP - start_CP) / CLOCKS_PER_SEC;
-
-        clock_t start_SS = clock();
-        tree_SS.construct(points, "SS");
-        clock_t end_SS = clock();
-        double constructTime_SS = static_cast<double>(end_SS - start_SS) / CLOCKS_PER_SEC;
+        auto end_CP = Clock::now();
+        auto constructTime_CP = duration_cast<nanoseconds>(end_CP - start_CP).count();
 
         for (int j = 0; j < 100; j++) {
             Query query = queries[j];
 
-            clock_t queryStart = clock();
-            int result_CP = MSearch(tree_CP, query);
-            clock_t queryEnd = clock();
-            double queryTime_CP = static_cast<double>(queryEnd - queryStart) / CLOCKS_PER_SEC;
-
-            queryStart = clock();
-            int result_SS = MSearch(tree_SS, query);
-            queryEnd = clock();
-            double queryTime_SS = static_cast<double>(queryEnd - queryStart) / CLOCKS_PER_SEC;
+            auto queryStart = Clock::now();
+            int result_CP = MSearchTree(tree_CP, query);
+            auto queryEnd = Clock::now();
+            auto queryTime_CP = duration_cast<nanoseconds>(queryEnd - queryStart).count();
 
             file << "CP;" << j << ";" << i << ";" << result_CP << ";" << queryTime_CP << ";" << constructTime_CP << "\n";
+        }
+
+        tree_CP.destroy();
+        
+        /*
+        auto start_SS = Clock::now();
+        tree_SS.construct(points, "SS");
+        auto end_SS = Clock::now();
+        auto constructTime_SS = duration_cast<nanoseconds>(end_SS - start_SS).count();
+
+        for (int j = 0; j < 100; j++) {
+            Query query = queries[j];
+
+            auto queryStart = Clock::now();
+            int result_SS = MSearchTree(tree_SS, query);
+            auto queryEnd = Clock::now();
+            auto queryTime_SS = duration_cast<nanoseconds>(queryEnd - queryStart).count();
+
             file << "SS;" << j << ";" << i << ";" << result_SS << ";" << queryTime_SS << ";" << constructTime_SS << "\n";
         }
+
+        tree_SS.destroy();*/
+        cout << "ciclo " << i << " terminado" << endl;
     }
 
     file.close();

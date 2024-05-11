@@ -24,7 +24,7 @@ int MSearch(Node node, Query query, vector<Point>& result) {
     return counter;
 }
 
-int MSearch(MTree tree, Query query) {
+int MSearchTree(MTree tree, Query query) {
     vector<Point> result;
     int res = MSearch(*tree.root, query, result);
     return res;

@@ -8,4 +8,4 @@ g++ -fdiagnostics-color=always -g -Og src/cp/bfs_utils.cpp src/cp/cp_method.cpp 
 
 cd build
 
-.\experiments.exe
+.\experiment.exe

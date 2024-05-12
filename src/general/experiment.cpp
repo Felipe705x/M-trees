@@ -31,18 +31,19 @@ vector<Query> rQueries() {
 }
 
 int main() {
-    ofstream file("results2.csv");
+    ofstream file("resultsSS.csv");
     file << "Method;Query;n;Disk Accesses;Query Time;Construction Time\n";
 
     vector<Query> queries = rQueries();
 
-    for (int i = 15; i < 21; i++) {
+    for (int i = 15; i < 26; i++) {
         unsigned long long n = (1ULL << i);
         vector<Point> points = rPoints(n);
 
-        MTree tree_CP;
-        //MTree tree_SS;
+        //MTree tree_CP;
+        MTree tree_SS;
 
+        /*
         auto start_CP = Clock::now();
         tree_CP.construct(points, "CP");
         auto end_CP = Clock::now();
@@ -59,9 +60,8 @@ int main() {
             file << "CP;" << j << ";" << i << ";" << result_CP << ";" << queryTime_CP << ";" << constructTime_CP << "\n";
         }
 
-        tree_CP.destroy();
+        tree_CP.destroy();*/
         
-        /*
         auto start_SS = Clock::now();
         tree_SS.construct(points, "SS");
         auto end_SS = Clock::now();
@@ -78,10 +78,11 @@ int main() {
             file << "SS;" << j << ";" << i << ";" << result_SS << ";" << queryTime_SS << ";" << constructTime_SS << "\n";
         }
 
-        tree_SS.destroy();*/
+        tree_SS.destroy();
         cout << "ciclo " << i << " terminado" << endl;
     }
 
     file.close();
     return 0;
 }
+    

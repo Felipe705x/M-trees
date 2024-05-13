@@ -10,14 +10,14 @@ SS = df[df['Method'] == "SS"]
 CP = df[df["Method"] == "CP"]
 def get_stats(df, n):
     df_n = df[df['n'] == n]
-    disk_avg = df_n['Query Time'].mean()
-    disk_std = df_n['Query Time'].std()
+    disk_avg = df_n['Disk Accesses'].mean()
+    disk_std = df_n['Disk Accesses'].std()
     disk_int_l = disk_avg - 1.96*disk_std/10
     disk_int_r = disk_avg + 1.96*disk_std/10
     return disk_avg, disk_std, disk_int_l, disk_int_r
 
 
-for i in range(10,16):
+for i in range(10,18):
     disk_avg, disk_std, disk_int_l, disk_int_r = get_stats(SS, i)
     print(f"Método SS {i} AVG = {disk_avg},  STD = {disk_std}")
     print(f"Intervalo de confianza:[{disk_int_l},{disk_int_r}]")
